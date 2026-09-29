@@ -26,6 +26,21 @@ body:has(.cyber-canvas) {
   pointer-events: none;
 }
 
+/* Darkens the fixed WebGL scene a bit everywhere (not just a hero-only vignette), because the
+ * scene's brightest point drifts under whatever section is in view as the page scrolls — a
+ * fix scoped to just the hero wouldn't help text lower down the page. Sits in the same wrapper
+ * as the canvas, right after it in the DOM, so it paints on top of the canvas but the page's
+ * real content (further down the DOM) still paints above both. */
+.cyber-scrim {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  background: rgba(3, 6, 13, 0.4);
+}
+
 /* `--card` is a translucent navy (see brand-theme.css) so every shadcn Card reads as a
  * glass panel over the fixed canvas; this adds the blur the `bg-card` background color
  * alone can't provide. Applies everywhere `bg-card` is used, which is the intended,

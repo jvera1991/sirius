@@ -18,7 +18,10 @@ const CONFIG = {
   lineColor: '#1c8f8f',
   pulseColor: '#eafffa',
   glowColor: '#3a5cff',
-  glowIntensity: 2.6,
+  // Was 2.6 — the glow's brightest point drifts behind body text as the page scrolls (this is a
+  // fixed full-viewport background, not just a hero decoration), and at 2.6 it washed out text
+  // wherever it passed underneath. Paired with the .cyber-scrim overlay below for a general fix.
+  glowIntensity: 1.5,
   starColor: '#cfe4ff',
   starCount: 1300,
   moteColor: '#6ce9d6',
@@ -247,7 +250,9 @@ export function CyberNetworkCanvas() {
     composer.addPass(new RenderPass(scene, camera));
     const bloomPass = new UnrealBloomPass(
       new THREE.Vector2(window.innerWidth, window.innerHeight),
-      0.75,
+      // Strength 0.75 → 0.5: same reasoning as glowIntensity above — less overall bloom so text
+      // stays readable wherever this fixed background happens to be brightest when it scrolls in.
+      0.5,
       0.7,
       0.15,
     );
@@ -348,6 +353,10 @@ export function CyberNetworkCanvas() {
   return (
     <div aria-hidden="true">
       <canvas ref={canvasRef} className="cyber-canvas" />
+      {/* Darkens the fixed scene a bit everywhere, not just behind the hero, so body text in
+       * later sections stays legible as this background scrolls with the page. See
+       * custom-style.css for the rule. */}
+      <div className="cyber-scrim" />
     </div>
   );
 }

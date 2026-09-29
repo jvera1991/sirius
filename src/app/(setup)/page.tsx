@@ -233,11 +233,11 @@ export default function HomePage() {
             </p>
             <h1
               id="hero-title"
-              className="max-w-3xl text-balance text-5xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-6xl lg:text-7xl"
+              className="max-w-3xl text-balance text-5xl font-semibold leading-[1.02] tracking-[-0.03em] [text-shadow:0_2px_4px_rgba(0,0,0,0.6),0_12px_40px_rgba(0,0,0,0.55)] sm:text-6xl lg:text-7xl"
             >
               Crece con protección digital de nivel enterprise, a precio de pyme.
             </h1>
-            <p className="mt-7 max-w-2xl text-xl font-medium leading-relaxed text-foreground/90 sm:text-2xl">
+            <p className="mt-7 max-w-2xl text-xl font-medium leading-relaxed text-foreground/90 [text-shadow:0_2px_10px_rgba(0,0,0,0.65)] sm:text-2xl">
               Monitoreamos tu operación 24/7 con un SOC potenciado por IA, protegemos tu marca y te
               acompañamos a cumplir la ISO 27001 — todo a un costo que una pyme puede pagar.
             </p>
