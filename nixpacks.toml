@@ -1,0 +1,19 @@
+# Nixpacks build config for EasyPanel's Docker/BuildKit builder.
+#
+# Why this exists: EasyPanel keeps a persistent npm cache volume across builds
+# for this project (mounted at /root/.npm). At some point a package in that
+# cache — @tailwindcss/postcss — ended up corrupted/incomplete, and every build
+# that actually re-runs `npm ci` (i.e. isn't served entirely from a cached
+# Docker layer) hits the same "Cannot find module '@tailwindcss/postcss'"
+# failure during `next build`, even though `npm ci` itself reports success.
+# Recreating the EasyPanel service does NOT get a fresh cache — the mount is
+# keyed to the project, not the service instance.
+#
+# Fix: clear npm's cache before every `npm ci`, so a fresh, verified copy of
+# every package (including the previously-corrupted one) gets downloaded and
+# repopulates that same cache volume. This is a one-time-effective fix — once
+# a build completes with `npm cache clean --force` in front of it, the cache
+# is clean again — but it's cheap to always run, so it stays here rather than
+# being removed after one good build.
+[phases.install]
+cmds = ["npm cache clean --force", "npm ci"]
