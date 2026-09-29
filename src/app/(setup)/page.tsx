@@ -120,43 +120,51 @@ const plans = [
   {
     name: 'Escudo Esencial',
     description: 'El punto de partida para una pyme sin equipo de seguridad propio.',
-    price: 'Desde $1.500.000',
-    period: '/mes',
+    hook: 'Hasta 20 equipos · crece por equipo adicional',
     features: [
       'SOC gestionado con Wazuh + IA',
-      'Hasta 20 equipos monitoreados',
       'Alertas 24/7, incluyendo fines de semana',
       'Reporte mensual de estado',
+      'Se ajusta a medida que sumas equipos',
     ],
+    cta: 'Cotizar Escudo Esencial',
     featured: false,
   },
   {
     name: 'Escudo Pro',
     description: 'Para empresas que ya manejan datos sensibles de clientes.',
-    price: 'Desde $2.800.000',
-    period: '/mes',
+    hook: 'Hasta 50 equipos + 2 servidores cloud',
     features: [
       'Todo lo de Escudo Esencial',
       'Protección de marca y credenciales filtradas',
       'Escaneo continuo de superficie de ataque',
-      'Hasta 50 equipos + 2 servidores en la nube',
+      'El plan que más pymes en crecimiento eligen',
     ],
+    cta: 'Cotizar Escudo Pro',
     featured: true,
   },
   {
     name: 'A la medida',
     description: 'Pentest, consultoría ISO 27001/22301 o proyectos puntuales.',
-    price: 'Cotización',
-    period: '',
+    hook: 'Alcance y calendario definidos contigo',
     features: [
       'Pentest caja blanca, gris o negra',
       'Consultoría e implementación ISO 27001 / 22301',
       'Automatización de chatbots y flujos con IA',
       'Charlas de concientización para tu equipo',
     ],
+    cta: 'Hablar de mi proyecto',
     featured: false,
   },
 ];
+
+// WhatsApp deep link — every "cotizar"/"solicitar diagnóstico" CTA on this page opens a chat
+// with this number instead of routing to an internal page. Update the number here if it changes;
+// every CTA below reads from this one constant.
+const WHATSAPP_NUMBER = '573225130054';
+function whatsappHref(message: string): string {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+}
 
 const stats = [
   { value: '24/7', label: 'Monitoreo continuo', description: 'Incluye noches y fines de semana' },
@@ -235,10 +243,16 @@ export default function HomePage() {
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Button asChild size="lg" className="group h-12 rounded-full px-6">
-                <Link href="/contacto">
+                <a
+                  href={whatsappHref(
+                    'Hola, quiero solicitar un diagnóstico gratuito de ciberseguridad para mi empresa.',
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Solicitar un diagnóstico
                   <ArrowUpRight className="transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </Link>
+                </a>
               </Button>
               <Button
                 asChild
@@ -387,16 +401,18 @@ export default function HomePage() {
           <div className="mx-auto max-w-7xl">
             <div className="mx-auto mb-14 max-w-2xl text-center">
               <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-brand-700">
-                Precios de referencia
+                Diseñado para crecer contigo
               </p>
               <h2
                 id="plans-title"
                 className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl"
               >
-                Planes pensados para pymes reales
+                Un plan para cada etapa de tu pyme
               </h2>
               <p className="mt-4 text-base leading-7 text-muted-foreground">
-                Los ajustamos según el número de equipos, servidores y dominios a proteger.
+                Sin tarifa genérica: cotizamos según tus equipos, servidores y dominios, para que
+                pagues exactamente por lo que necesitas proteger hoy — y escalas cuando tu empresa
+                lo haga.
               </p>
             </div>
             <div className="grid gap-6 lg:grid-cols-3">
@@ -410,18 +426,14 @@ export default function HomePage() {
                       <h3 className="text-lg font-semibold">{plan.name}</h3>
                       {plan.featured && (
                         <Badge className="rounded-full bg-primary text-primary-foreground">
-                          Recomendado
+                          Más elegido
                         </Badge>
                       )}
                     </div>
                     <p className="mt-2 text-sm text-muted-foreground">{plan.description}</p>
-                    <p className="mt-6 text-3xl font-semibold tracking-tight">
-                      {plan.price}
-                      {plan.period && (
-                        <span className="text-base font-normal text-muted-foreground">
-                          {plan.period}
-                        </span>
-                      )}
+                    <p className="mt-6 flex items-center gap-2 font-mono text-xs tracking-wide text-primary">
+                      <ArrowUpRight className="size-3.5" />
+                      {plan.hook}
                     </p>
                     <ul className="mt-6 flex flex-1 flex-col gap-3">
                       {plan.features.map((feature) => (
@@ -439,8 +451,19 @@ export default function HomePage() {
                       className="mt-8 rounded-full"
                       variant={plan.featured ? 'default' : 'outline'}
                     >
-                      <Link href="#inicio">Empezar aquí</Link>
+                      <a
+                        href={whatsappHref(
+                          `Hola, quiero cotizar el plan ${plan.name} de Sirius Cyber Security para mi empresa.`,
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {plan.cta}
+                      </a>
                     </Button>
+                    <p className="mt-3 text-center text-xs text-muted-foreground">
+                      Cotización personalizada en menos de 24h
+                    </p>
                   </CardContent>
                 </Card>
               ))}
@@ -492,7 +515,15 @@ export default function HomePage() {
                   mismo nivel de seguridad a empresas que hoy no pueden pagar un SOC tradicional.
                 </p>
                 <Button asChild variant="outline" className="mt-6 rounded-full">
-                  <Link href="#inicio">Conversemos</Link>
+                  <a
+                    href={whatsappHref(
+                      'Hola, quiero conversar sobre los servicios de Sirius Cyber Security para mi empresa.',
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Conversemos
+                  </a>
                 </Button>
               </CardContent>
             </Card>
@@ -537,10 +568,16 @@ export default function HomePage() {
                   Agenda un diagnóstico gratuito y te decimos exactamente dónde estás expuesto.
                 </p>
                 <Button asChild size="lg" className="group mt-8 h-12 rounded-full px-6">
-                  <Link href="#inicio">
+                  <a
+                    href={whatsappHref(
+                      'Hola, quiero solicitar un diagnóstico gratuito de ciberseguridad para mi empresa.',
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Solicitar un diagnóstico
                     <ArrowUpRight className="transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                  </Link>
+                  </a>
                 </Button>
               </CardContent>
             </Card>
