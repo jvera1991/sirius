@@ -1,0 +1,86 @@
+/* @polsia:user-owned — the app's visual theme. Edit freely; write it, don't tune it.
+ *
+ * globals.css imports this file LAST and keeps its own fallback inside
+ * `@layer base`, so any unlayered `:root` / `.dark` rule written here wins the
+ * cascade without `!important`. An empty file leaves the neutral, achromatic
+ * fallback in place — which is the "unfinished" look, not a design.
+ *
+ * Every semantic role is independently settable in each mode (light and dark do
+ * NOT have to be the same hue, and accent does not have to be a tint of primary):
+ *   --background / --foreground, --card / --card-foreground,
+ *   --popover / --popover-foreground, --primary / --primary-foreground,
+ *   --secondary / --secondary-foreground, --muted / --muted-foreground,
+ *   --accent / --accent-foreground, --destructive, --border, --input, --ring,
+ *   the optional --brand-50..900 ramp, --elevation-1..3 and --shadow-brand-color.
+ *
+ * Typography: --font-body, --font-display (load the files first — see
+ * AGENTS.md "Fonts"), plus --text-display / --text-h1 … --text-caption and their
+ * --text-<step>--line-height / --font-weight / --letter-spacing companions.
+ * Shape and density: --radius (drives the ramp) or individual
+ * --radius-sm/md/lg/xl/2xl, --spacing-stack/block/gutter/section/section-lg,
+ * --container-page. A `@theme { … }` block here can also add or replace
+ * Tailwind utility tokens (new colors, sizes, shadows).
+ *
+ * Example — independent light and dark surfaces, a warm accent, a serif display:
+ *
+ *   :root {
+ *     --background: #fbf8f2; --foreground: #1d1a16; --card: #ffffff;
+ *     --primary: #b84a20; --primary-foreground: #ffffff;
+ *     --accent: #e7efe3; --accent-foreground: #1f3b2a;
+ *     --border: #e6dfd3; --ring: #b84a20;
+ *     --font-display: "Fraunces", Georgia, serif;
+ *   }
+ *   .dark {
+ *     --background: #181715; --foreground: #f3efe8; --card: #25211e;
+ *     --primary: #f29a6b; --primary-foreground: #1d1a16;
+ *     --accent: #24322a; --accent-foreground: #d9e8dc;
+ *     --border: #3a342e; --ring: #f29a6b;
+ *   }
+ *
+ * Set the matching foreground for every surface you change and check contrast in
+ * both modes; nothing here validates colors for you.
+ */
+
+/* Sirius Cyber Security — a SOC/threat-intel brand reads as dark regardless of the
+ * visitor's light/dark preference, so the same deep-navy/teal palette is set once at
+ * `:root` (unlayered rules here beat the framework's light AND dark fallback, so no
+ * separate `.dark` block is needed to keep this look when the toggle is used).
+ * `--card`/`--secondary`/`--muted`/`--accent` are translucent so the fixed WebGL
+ * network canvas (cyber-network-canvas.tsx) shows through card surfaces; pair with
+ * `backdrop-filter: blur(...)` (added globally in custom-style.css). */
+:root {
+  --brand-50: #e6fff6;
+  --brand-100: #c2ffec;
+  --brand-200: #8ff6da;
+  --brand-300: #5be9c4;
+  --brand-400: #39d9ae;
+  --brand-500: #22c99a;
+  --brand-600: #17a883;
+  --brand-700: #4ff0c6;
+  --brand-800: #106a55;
+  --brand-900: #0c4f41;
+
+  --background: #03060d;
+  --foreground: #eef3ff;
+  --card: rgba(14, 22, 44, 0.55);
+  --card-foreground: var(--foreground);
+  --popover: #0b1226;
+  --popover-foreground: var(--foreground);
+  --primary: #39f2c4;
+  --primary-foreground: #032018;
+  --secondary: rgba(255, 255, 255, 0.06);
+  --secondary-foreground: var(--foreground);
+  --muted: rgba(255, 255, 255, 0.045);
+  --muted-foreground: #9fb3d1;
+  --accent: rgba(57, 242, 196, 0.12);
+  --accent-foreground: var(--foreground);
+  --destructive: #ff6b6b;
+  --border: rgba(150, 200, 230, 0.16);
+  --input: rgba(150, 200, 230, 0.22);
+  --ring: #39f2c4;
+
+  --elevation-1: rgba(0, 0, 0, 0.35);
+  --elevation-2: rgba(0, 0, 0, 0.45);
+  --elevation-3: rgba(0, 0, 0, 0.6);
+  --shadow-brand-color: rgba(57, 242, 196, 0.35);
+}

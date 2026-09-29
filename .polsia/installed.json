@@ -1,0 +1,163 @@
+{
+  "$schema": "https://polsia.app/schema/installed.v1.json",
+  "_doc": "Machine-owned trust anchor (per D21). Installed modules + versions + install-hashes + ejected files + slot assignments + day-1 validator floor. Users must NOT edit this file; the framework can no longer trust the state if they do. Hand-editable per-module overrides live in .polsia/overrides.json. Path -> tier mapping lives in .polsia/ownership.json (generated from installed manifests).",
+  "template": {
+    "id": "polsia-next-v2",
+    "name": "polsia/template-next",
+    "version": "0.3.0",
+    "framework": "next",
+    "framework_version": "16.2.6",
+    "installed_at": "PLACEHOLDER_TIMESTAMP",
+    "install_hash": "PLACEHOLDER_HASH"
+  },
+  "modules": [
+    {
+      "name": "email",
+      "version": "0.5.1",
+      "target": "next",
+      "install_hash": "sha256:98c69c953a208d5b2c755aecbed313200504db81802a23de6efa79ad8426c1b8",
+      "installed_at": "2026-09-25T23:19:46.372Z",
+      "source": "Polsia-Inc/modules/modules/email",
+      "ref_sha": "a1593f281050e1b226a1be9d59348be9af50b9fe",
+      "ownership_appends": [
+        {
+          "path": "src/lib/email/send.ts",
+          "tier": "framework_owned"
+        },
+        {
+          "path": "src/lib/email/submissions.ts",
+          "tier": "framework_owned"
+        },
+        {
+          "path": "src/lib/email/templates.ts",
+          "tier": "user_owned"
+        },
+        {
+          "path": "src/lib/email/send.ts",
+          "tier": "framework_owned"
+        },
+        {
+          "path": "src/lib/email/submissions.ts",
+          "tier": "framework_owned"
+        }
+      ],
+      "files": {
+        "src/lib/email/send.ts": {
+          "path": "src/lib/email/send.ts",
+          "tier": "framework_owned",
+          "integrity": "sha256:0106c5f52e68eba0c353925e9f1445d5b36a3337b47baaaf417058705675b158",
+          "pinned": false,
+          "alias": null
+        },
+        "src/lib/email/submissions.ts": {
+          "path": "src/lib/email/submissions.ts",
+          "tier": "framework_owned",
+          "integrity": "sha256:f562c532cb6227c648de9ec08cedbfe3ac2bf1fa6dce43193e7e30a4498cb0b7",
+          "pinned": false,
+          "alias": null
+        },
+        "src/lib/email/templates.ts": {
+          "path": "src/lib/email/templates.ts",
+          "tier": "user_owned",
+          "integrity": "sha256:b7bebdbe91e2ad406bd76a7d8c78af224dfd156939fa2af40f3a2898ccdcdb98",
+          "pinned": false,
+          "alias": null
+        }
+      }
+    },
+    {
+      "name": "contact-form",
+      "version": "0.3.0",
+      "target": "next",
+      "install_hash": "sha256:ef8ef51bdf576dd5c8ebb630d5e08c1a429f3c2540fd558f4aa113e93605dd65",
+      "installed_at": "2026-09-25T23:19:55.166Z",
+      "source": "Polsia-Inc/modules/modules/contact-form",
+      "ref_sha": "a1593f281050e1b226a1be9d59348be9af50b9fe",
+      "ownership_appends": [
+        {
+          "path": "prisma/schema/contact.prisma",
+          "tier": "framework_owned"
+        },
+        {
+          "path": "prisma/migrations/**",
+          "tier": "framework_owned"
+        },
+        {
+          "path": "src/app/api/contact/route.ts",
+          "tier": "user_owned"
+        },
+        {
+          "path": "src/lib/contact/schema.ts",
+          "tier": "user_owned"
+        },
+        {
+          "path": "src/components/custom/contact-form.tsx",
+          "tier": "user_owned"
+        },
+        {
+          "path": "prisma/schema/contact.prisma",
+          "tier": "framework_owned"
+        },
+        {
+          "path": "prisma/migrations/20260608000000_init_contact/migration.sql",
+          "tier": "framework_owned"
+        }
+      ],
+      "files": {
+        "prisma/schema/contact.prisma": {
+          "path": "prisma/schema/contact.prisma",
+          "tier": "framework_owned",
+          "integrity": "sha256:58793b04886b22a956bc433ba55ecefa60ab8b07e19fa8d772ad339aaa2aac6a",
+          "pinned": false,
+          "alias": null
+        },
+        "prisma/migrations/20260608000000_init_contact/migration.sql": {
+          "path": "prisma/migrations/20260608000000_init_contact/migration.sql",
+          "tier": "framework_owned",
+          "integrity": "sha256:88b0a482f29fa15c39fe770d699acd0890a689cffb6d41d8ce0f280179b4638e",
+          "pinned": false,
+          "alias": null
+        },
+        "src/app/api/contact/route.ts": {
+          "path": "src/app/api/contact/route.ts",
+          "tier": "user_owned",
+          "integrity": "sha256:b6245c5bc3aa0e61c9ae0a646c75ef50edbff1e461ca1aae95d789ed6445a315",
+          "pinned": false,
+          "alias": null
+        },
+        "src/lib/contact/schema.ts": {
+          "path": "src/lib/contact/schema.ts",
+          "tier": "user_owned",
+          "integrity": "sha256:97f4b15125fcbc7cfb726a4b0e472a1ce96a4ed95410bbf1335b3281da25fd6c",
+          "pinned": false,
+          "alias": null
+        },
+        "src/components/custom/contact-form.tsx": {
+          "path": "src/components/custom/contact-form.tsx",
+          "tier": "user_owned",
+          "integrity": "sha256:bbfa4d5db485c4f11fc579d16bfa0c3af7aa4e8417e1d5dab2d3a2b2bf654d13",
+          "pinned": false,
+          "alias": null
+        }
+      }
+    }
+  ],
+  "install_hashes": {
+    "email": "sha256:98c69c953a208d5b2c755aecbed313200504db81802a23de6efa79ad8426c1b8",
+    "contact-form": "sha256:ef8ef51bdf576dd5c8ebb630d5e08c1a429f3c2540fd558f4aa113e93605dd65"
+  },
+  "ejected_files": [],
+  "slot_assignments": {},
+  "day_1_floor": [
+    "no-secrets-in-client-bundle",
+    "server-only-import-on-secret-modules",
+    "agent-has-no-prod-db-credentials",
+    "db-ssl-required",
+    "parameterized-queries-only",
+    "security-headers-present",
+    "lockfile-committed-and-pinned",
+    "lifecycle-scripts-disabled",
+    "next-version-not-affected-by-cve-2025-29927"
+  ],
+  "_note_day_1_floor": "Templates are scaffolds with the shadcn/UI baseline shipped IN the template (components.json + cn() + a committed base primitive set + a next-themes ThemeProvider + a token-driven theme), plus the framework-native default DB client (Prisma for template-next). This floor is the scaffold-applicable validator set plus the data checks the baked-in DB client makes runnable on day 1. Other module-specific validators ship in module manifests and are added when those modules install. Validator names must exist in Polsia-Inc/modules/validators/README.md."
+}

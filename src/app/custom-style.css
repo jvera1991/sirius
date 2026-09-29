@@ -1,0 +1,36 @@
+/* @polsia:user-owned — your custom global CSS: keyframes, animation classes, one-off global
+ * styles, self-hosted @font-face rules, and @import your own .css files. Prefer tw-animate-css
+ * for motion (animate-in, fade-in, slide-in-from-bottom-N, duration-*). The app's visual theme
+ * (colors, light/dark, type, radius, spacing) lives in brand-theme.css; globals.css holds the
+ * framework wiring and is not yours to edit. */
+
+/* Optional data-screen building blocks (src/components/custom/app-ui). User-owned like this
+ * file: keep, restyle, or delete the folder and this line together. */
+@import "../components/custom/app-ui/app-ui.css" layer(components);
+
+/* Sirius homepage — fixed WebGL backdrop (see cyber-network-canvas.tsx), mounted from
+ * src/app/(setup)/page.tsx. Sits behind the page content (z-index 0) and never intercepts
+ * clicks or scroll. A dark fallback background avoids a white flash before the canvas mounts,
+ * or when it can't (older browsers, reduced motion). */
+html:has(.cyber-canvas),
+body:has(.cyber-canvas) {
+  background: #03060d;
+}
+.cyber-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* `--card` is a translucent navy (see brand-theme.css) so every shadcn Card reads as a
+ * glass panel over the fixed canvas; this adds the blur the `bg-card` background color
+ * alone can't provide. Applies everywhere `bg-card` is used, which is the intended,
+ * site-wide "glass" look for a single-brand app. */
+.bg-card {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
